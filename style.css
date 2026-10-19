@@ -1,0 +1,78 @@
+/* 팔로 리드 연결 — 대표님이 휴대폰으로 여는 화면 기준. 브랜드: 퍼플 #493087 · 옐로 #E0D120 · 틴트 #EDE7F3 · 블랙 #333132 · 그레이 #98959A */
+:root {
+  --purple: #493087;
+  --purple-deep: #35226a;
+  --yellow: #E0D120;
+  --tint: #EDE7F3;
+  --ink: #333132;
+  --gray: #98959A;
+  --line: #ddd6e8;
+  --paper: #ffffff;
+  --ok: #1f7a4d;
+  --ok-soft: #e3f3ea;
+  --warn: #9a3412;
+  --warn-soft: #fdeee4;
+  --font: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--tint);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding: 24px 16px 48px;
+}
+.wrap { max-width: 520px; margin: 0 auto; display: grid; gap: 16px; }
+header { display: flex; align-items: center; justify-content: space-between; padding: 4px 4px 8px; }
+header img { height: 30px; width: auto; }
+header .tag { font-size: 12px; letter-spacing: .06em; color: var(--purple); font-weight: 600; }
+.card { background: var(--paper); border-radius: 18px; padding: 24px 20px; box-shadow: 0 1px 0 var(--line); }
+h1 { font-size: 23px; line-height: 1.35; margin: 0 0 8px; text-wrap: balance; letter-spacing: -.01em; }
+h1 .branch { color: var(--purple); }
+.lead { margin: 0; color: #4b4850; }
+h2 { font-size: 15px; margin: 0 0 10px; color: var(--purple); }
+ol.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 10px; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+ol.steps li::before {
+  content: counter(s); width: 28px; height: 28px; border-radius: 50%;
+  background: var(--tint); color: var(--purple); font-weight: 700; font-size: 14px;
+  display: grid; place-items: center;
+}
+ol.steps li.done::before { content: "✓"; background: var(--purple); color: #fff; }
+ol.steps li.now::before { background: var(--yellow); color: var(--ink); }
+button.primary {
+  width: 100%; border: 0; border-radius: 14px; padding: 16px; margin-top: 18px;
+  background: var(--purple); color: #fff; font: 600 17px var(--font); cursor: pointer;
+}
+button.primary:hover { background: var(--purple-deep); }
+button.primary:disabled { background: var(--gray); cursor: default; }
+button:focus-visible, label:focus-within { outline: 3px solid var(--yellow); outline-offset: 2px; }
+button.link { background: none; border: 0; color: var(--purple); font: 500 15px var(--font); text-decoration: underline; cursor: pointer; padding: 8px 0 0; }
+.pages { display: grid; gap: 8px; margin-top: 12px; }
+.pages label {
+  display: flex; gap: 12px; align-items: center; border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 14px; cursor: pointer; font-weight: 500;
+}
+.pages label:has(input:checked) { border-color: var(--purple); background: var(--tint); }
+.pages label.off { color: var(--gray); cursor: default; }
+.pages input { accent-color: var(--purple); width: 18px; height: 18px; flex: none; }
+.pages small { display: block; font-weight: 400; color: var(--gray); font-size: 13px; }
+.note { font-size: 14px; color: #5d5a63; margin: 0; }
+.box { border-radius: 12px; padding: 14px 16px; font-size: 15px; }
+.box.ok { background: var(--ok-soft); color: var(--ok); }
+.box.warn { background: var(--warn-soft); color: var(--warn); }
+.share { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 14px; }
+.share div { background: var(--tint); border-radius: 12px; padding: 12px; }
+.share b { display: block; font-size: 13px; color: var(--purple); margin-bottom: 4px; }
+footer { text-align: center; font-size: 13px; color: var(--gray); }
+footer a { color: var(--gray); }
+.doc h1 { font-size: 21px; }
+.doc h2 { margin-top: 22px; }
+.doc p, .doc li { font-size: 15px; }
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #fff; border-right-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -3px; margin-right: 8px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+[hidden] { display: none !important; }
