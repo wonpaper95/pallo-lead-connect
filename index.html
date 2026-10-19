@@ -117,12 +117,15 @@ async function loadPages() {
   const btn = $("btn-login");
   busy(btn, true, "페이지 불러오는 중");
   try {
-    const { pages } = await post("/pages", { code, userToken });
+    const { pages, diag } = await post("/pages", { code, userToken });
     $("s1").className = "done"; $("s2").className = "now";
     $("step-login").hidden = true; $("step-pages").hidden = false;
     const box = $("pages"); box.innerHTML = "";
     if (!pages.length) {
       box.innerHTML = '<p class="note">허용된 페이지가 없어요. "다시 로그인"을 눌러 페이스북 창에서 지점 페이지에 체크해 주세요.</p>';
+      const d = document.createElement("p"); d.className = "note"; d.style.fontSize = "12px";
+      d.textContent = "확인용 정보 — 로그인 계정: " + (diag?.me || "?") + " / 허용 범위: " + ((diag?.scopes || []).join(", ") || "없음");
+      box.appendChild(d);
     }
     for (const p of pages) {
       const l = document.createElement("label");
