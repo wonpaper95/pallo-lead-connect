@@ -32,7 +32,7 @@
     </div>
 
     <div id="step-pages" hidden>
-      <p class="note" style="margin-top:16px">연결할 <b id="branch-name-2"></b> 페이지를 골라 주세요.</p>
+      <p class="note" style="margin-top:16px">연결할 <b id="branch-name-2"></b> 페이지를 골라 주세요. 목록에 없으면 아래 "다시 로그인"을 눌러 페이스북 창에서 그 페이지에 체크해 주세요.</p>
       <div class="pages" id="pages"></div>
       <button class="primary" id="btn-connect" type="button" disabled>이 페이지 연결하기</button>
       <button class="link" id="btn-retry" type="button">찾는 페이지가 없어요 (다시 로그인)</button>
@@ -149,6 +149,12 @@ async function connect() {
   clearError();
   const sel = document.querySelector('input[name="page"]:checked');
   if (!sel) return;
+  // 팔로 페이지가 아닌 걸 고르면 한 번 더 확인 (다른 사업 페이지가 지점 전산에 연결되는 사고 방지)
+  const pageName = sel.closest("label").innerText.trim();
+  if (!/팔로|pallo/i.test(pageName) &&
+      !confirm("\"" + pageName + "\"은(는) 팔로 지점 페이지가 아닌 것 같아요.\n이 페이지의 신청이 팔로 " + branchName + " 전산에 들어가게 됩니다.\n\n정말 이 페이지를 연결할까요?")) {
+    return;
+  }
   const btn = $("btn-connect");
   busy(btn, true, "연결하는 중");
   try {
